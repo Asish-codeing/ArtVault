@@ -3,6 +3,7 @@ package com.artvault.artvaultbackend.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.artvault.artvaultbackend.entity.Activity;
 
@@ -18,5 +19,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByUsernameIgnoreCase(String username);
 
     // Delete all activities belonging to a user
+    @Transactional
     void deleteByUserId(Long userId);
 }
