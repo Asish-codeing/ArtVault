@@ -1,12 +1,16 @@
 package com.artvault.artvaultbackend.controller;
 
-import com.artvault.artvaultbackend.entity.User;
-import com.artvault.artvaultbackend.service.UserService;
-import com.artvault.artvaultbackend.service.ActivityService;
-
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.artvault.artvaultbackend.entity.User;
+import com.artvault.artvaultbackend.service.ActivityService;
+import com.artvault.artvaultbackend.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,10 +27,20 @@ public class RegistrationController {
         this.activityService = activityService;
     }
 
+    // USER REGISTRATION
     @PostMapping("/register")
-    public ResponseEntity<?> register(
-            @RequestBody RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> register(
+            @RequestBody(required = false) RegisterRequest request) {
 
+        // Check whether request exists
+        if (request == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Registration details are required."
+            );
+        }
+
+        // Create account
         User user = userService.registerUser(
                 request.username(),
                 request.email(),
@@ -41,25 +55,33 @@ public class RegistrationController {
                 "New user registered"
         );
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new RegisterResponse(
-                        "Registration successful!",
-                        user.getId(),
-                        user.getUsername(),
-                        user.getEmail()
-                ));
+        // Return successful response
+        RegisterResponse response = new RegisterResponse(
+                "Registration successful!",
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
+    // Registration request
     public record RegisterRequest(
             String username,
             String email,
             String password
-    ) {}
+    ) {
+    }
 
+    // Registration response
     public record RegisterResponse(
             String message,
             Long userId,
             String username,
             String email
-    ) {}
+    ) {
+    }
 }
