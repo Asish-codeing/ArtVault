@@ -1,19 +1,22 @@
 package com.artvault.artvaultbackend.repository;
 
-import com.artvault.artvaultbackend.entity.Activity;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.artvault.artvaultbackend.entity.Activity;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
-    // Find activities of a particular user
-    List<Activity> findByUserId(Long userId);
+    // Get activities belonging to a user
+    List<Activity> findByUserIdOrderByCreatedAtDesc(Long userId);
 
-    // Display latest activities first
+    // Get all activities, newest first
     List<Activity> findAllByOrderByCreatedAtDesc();
 
     // Find activities by username
     List<Activity> findByUsernameIgnoreCase(String username);
+
+    // Delete all activities belonging to a user
+    void deleteByUserId(Long userId);
 }

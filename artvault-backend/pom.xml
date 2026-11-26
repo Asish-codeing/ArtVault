@@ -58,16 +58,16 @@
 
         <!-- Cloudinary Image Storage -->
         <dependency>
-    <groupId>com.cloudinary</groupId>
-    <artifactId>cloudinary-core</artifactId>
-    <version>2.6.0</version>
-</dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-core</artifactId>
+            <version>2.6.0</version>
+        </dependency>
 
-<dependency>
-    <groupId>com.cloudinary</groupId>
-    <artifactId>cloudinary-http5</artifactId>
-    <version>2.6.0</version>
-</dependency>
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http5</artifactId>
+            <version>2.6.0</version>
+        </dependency>
 
         <!-- JPA Tests -->
         <dependency>
@@ -87,6 +87,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- H2 In-Memory Database for Testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
 

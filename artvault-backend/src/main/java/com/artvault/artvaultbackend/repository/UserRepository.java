@@ -1,6 +1,7 @@
 package com.artvault.artvaultbackend.repository;
 
 import com.artvault.artvaultbackend.entity.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -13,7 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmailIgnoreCase(String email);
 
     Optional<User> findByUsernameIgnoreCaseOrEmailIgnoreCase(
-            String username, String email
+            String username,
+            String email
     );
 
     // Find a user by ID
@@ -21,6 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Find users by role
     List<User> findByRole(String role);
+
+    // Count users by role
+    long countByRole(String role);
 
     // Check whether a user is an admin
     boolean existsByIdAndRole(Long id, String role);

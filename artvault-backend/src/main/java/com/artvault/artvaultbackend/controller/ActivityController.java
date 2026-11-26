@@ -15,7 +15,8 @@ import java.util.List;
 @CrossOrigin(
     origins = {
         "http://localhost:5500",
-        "http://127.0.0.1:5500"
+        "http://127.0.0.1:5500",
+        "https://artvault-gallery.netlify.app"
     },
     allowCredentials = "true"
 )
@@ -32,12 +33,14 @@ public class ActivityController {
         this.adminAuthorizationService = adminAuthorizationService;
     }
 
-    // Admin can view all activities
+    // Only administrators can view all activities
     @GetMapping
     public List<Activity> getAllActivities(HttpSession session) {
 
+        // Verify administrator permissions
         adminAuthorizationService.requireAdmin(session);
 
+        // Return activity records, newest first
         return activityService.getAllActivities();
     }
 }

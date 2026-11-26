@@ -11,9 +11,10 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Long userId;
 
-    @Column(length = 100)
+    @Column(nullable = false, length = 30)
     private String username;
 
     @Column(nullable = false, length = 50)
@@ -22,6 +23,7 @@ public class Activity {
     @Column(length = 500)
     private String description;
 
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public Activity() {
@@ -29,7 +31,9 @@ public class Activity {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
     }
 
     public Long getId() {

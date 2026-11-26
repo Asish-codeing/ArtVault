@@ -1,6 +1,7 @@
 package com.artvault.artvaultbackend.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public class DrawingService {
         this.drawingRepository = drawingRepository;
     }
 
+    // Upload drawing
     public Drawing uploadDrawing(
             String title,
             String description,
@@ -50,6 +52,19 @@ public class DrawingService {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException(
                 "Drawing title is required."
+            );
+        }
+
+        if (title.trim().length() > 100) {
+            throw new IllegalArgumentException(
+                "Title cannot exceed 100 characters."
+            );
+        }
+
+        if (description != null &&
+                description.length() > 1000) {
+            throw new IllegalArgumentException(
+                "Description cannot exceed 1000 characters."
             );
         }
 
@@ -113,17 +128,40 @@ public class DrawingService {
         drawing.setCloudinaryPublicId(publicId);
         drawing.setOwnerUserId(ownerUserId);
 
-        return drawingRepository.save(drawing);
+        try {
+
+            return drawingRepository.save(drawing);
+
+        } catch (RuntimeException databaseError) {
+
+            // Remove Cloudinary image if database saving fails
+            try {
+
+                cloudinary.uploader().destroy(
+                    publicId,
+                    ObjectUtils.asMap(
+                        "resource_type", "image",
+                        "invalidate", true
+                    )
+                );
+
+            } catch (Exception cleanupError) {
+
+                databaseError.addSuppressed(cleanupError);
+            }
+
+            throw databaseError;
+        }
     }
 
-    // Verify actual image file signature
+    // Detect actual image format using file signature
     private String detectImageType(byte[] bytes) {
 
         if (bytes == null || bytes.length < 12) {
             return null;
         }
 
-        // JPEG signature
+        // JPEG
         if ((bytes[0] & 0xFF) == 0xFF &&
                 (bytes[1] & 0xFF) == 0xD8 &&
                 (bytes[2] & 0xFF) == 0xFF) {
@@ -131,7 +169,7 @@ public class DrawingService {
             return "image/jpeg";
         }
 
-        // PNG signature
+        // PNG
         if ((bytes[0] & 0xFF) == 0x89 &&
                 bytes[1] == 0x50 &&
                 bytes[2] == 0x4E &&
@@ -144,7 +182,7 @@ public class DrawingService {
             return "image/png";
         }
 
-        // WEBP signature
+        // WEBP
         if (bytes[0] == 'R' &&
                 bytes[1] == 'I' &&
                 bytes[2] == 'F' &&
@@ -160,9 +198,17 @@ public class DrawingService {
         return null;
     }
 
+    // Delete one drawing
     public void deleteDrawing(
             Long drawingId,
             Long ownerUserId) {
+
+        if (drawingId == null || ownerUserId == null) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Drawing ID and user ID are required."
+            );
+        }
 
         Drawing drawing = drawingRepository.findById(drawingId)
             .orElseThrow(() -> new ResponseStatusException(
@@ -177,6 +223,14 @@ public class DrawingService {
             throw new ResponseStatusException(
                 HttpStatus.FORBIDDEN,
                 "You cannot delete another user's drawing."
+            );
+        }
+
+        if (drawing.getCloudinaryPublicId() == null ||
+                drawing.getCloudinaryPublicId().isBlank()) {
+
+            throw new IllegalStateException(
+                "Drawing image information is missing."
             );
         }
 
@@ -207,6 +261,29 @@ public class DrawingService {
             throw new IllegalStateException(
                 "Unable to delete artwork. Please try again.",
                 e
+            );
+        }
+    }
+
+    // Delete all drawings belonging to one user
+    public void deleteAllUserDrawings(Long ownerUserId) {
+
+        if (ownerUserId == null) {
+            throw new IllegalArgumentException(
+                "User ID is required."
+            );
+        }
+
+        List<Drawing> drawings =
+            drawingRepository.findByOwnerUserIdOrderByUploadedAtDesc(
+                ownerUserId
+            );
+
+        for (Drawing drawing : drawings) {
+
+            deleteDrawing(
+                drawing.getId(),
+                ownerUserId
             );
         }
     }
