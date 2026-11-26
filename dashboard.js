@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-    const API_URL = "http://localhost:8080";
+   const API_URL = "https://artvault-production-428cc489.up.railway.app";
 
     const usernameElement = document.getElementById("username");
     const logoutButton = document.getElementById("logoutButton");
