@@ -1,4 +1,4 @@
-const API_URL = "https://9hlzj8hp-8080.inc1.devtunnels.ms";
+const API_URL = "https://artvault-production-428cc489.up.railway.app";
 
 const registerForm = document.getElementById("registerForm");
 

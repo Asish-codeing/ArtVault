@@ -14,7 +14,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "http://localhost:5500",
                         "http://127.0.0.1:5500",
-                        "https://9hlzj8hp-5500.inc1.devtunnels.ms"
+                        "https://artvault-gallery.netlify.app"
                 )
                 .allowedMethods(
                         "GET",
