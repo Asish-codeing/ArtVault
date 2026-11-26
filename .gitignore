@@ -1,0 +1,21 @@
+# Java / Maven
+**/target/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Local configuration
+**/application-local.properties
+
+# Uploaded user content
+**/uploads/
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.iml

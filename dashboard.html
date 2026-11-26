@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArtVault | Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h1 class="logo">ArtVault<span>.</span></h1>
+
+        <nav>
+            <a href="#dashboard" class="active">🏠 Dashboard</a>
+            <a href="#explore">🎨 Explore Art</a>
+            <a href="#upload">📤 Upload Drawing</a>
+            <a href="#gallery">🖼️ My Gallery</a>
+            <a href="#community">👥 Community</a>
+        </nav>
+
+        <!-- ADMIN PANEL BUTTON: ONLY VISIBLE TO ADMIN -->
+        <button
+            id="adminPanelButton"
+            class="admin-panel-button"
+            style="display: none;"
+            type="button">
+            👑 Admin Panel
+        </button>
+
+        <!-- LOGOUT BUTTON -->
+        <button id="logoutButton" class="logout" type="button">
+            Logout ↗
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <p class="small-heading">WELCOME TO ARTVAULT</p>
+                <h2>Discover Amazing Artwork</h2>
+            </div>
+
+            <div class="profile">
+                👤 <span id="profileUsername">Artist</span>
+            </div>
+
+        </header>
+
+
+        <!-- WELCOME SECTION -->
+        <section id="dashboard" class="welcome-card">
+
+            <div>
+
+                <p>YOUR CREATIVE SPACE</p>
+
+                <h1>
+                    Welcome,
+                    <span id="username">Artist</span>!
+                </h1>
+
+                <p>
+                    Share your imagination. Inspire the world.
+                </p>
+
+                <button onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'})">
+                    Start Creating →
+                </button>
+
+            </div>
+
+            <div class="welcome-art">
+                🎨
+            </div>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <h2>🎨</h2>
+                <p>Explore Art</p>
+                <h3>Discover</h3>
+            </div>
+
+            <div class="stat-card">
+                <h2>📤</h2>
+                <p>Upload Drawing</p>
+                <h3>Create</h3>
+            </div>
+
+            <div class="stat-card">
+                <h2>🖼️</h2>
+                <p>My Gallery</p>
+                <h3 id="galleryCount">0 Drawings</h3>
+            </div>
+
+        </section>
+
+
+        <!-- EXPLORE ART -->
+        <section id="explore" class="content-section">
+
+            <h2>Explore the Creative World ✨</h2>
+
+            <p>Discover artwork shared by ArtVault artists.</p>
+
+            <div id="exploreGallery" class="art-grid">
+
+                <p>Loading artwork...</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- UPLOAD DRAWING -->
+        <section id="upload" class="content-section">
+
+            <h2>Upload Your Artwork 📤</h2>
+
+            <p>Share your creativity with the ArtVault community.</p>
+
+            <form id="uploadForm" enctype="multipart/form-data">
+
+                <label for="drawingTitle">
+                    Drawing Title
+                </label>
+
+                <input
+                    type="text"
+                    id="drawingTitle"
+                    name="title"
+                    placeholder="Enter your drawing title"
+                    maxlength="150"
+                    required
+                >
+
+                <label for="drawingDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="drawingDescription"
+                    name="description"
+                    placeholder="Tell us about your artwork..."
+                    rows="4"
+                    maxlength="1000"
+                ></textarea>
+
+                <label for="drawingFile">
+                    Choose Your Artwork
+                </label>
+
+                <input
+                    type="file"
+                    id="drawingFile"
+                    name="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    required
+                >
+
+                <p class="file-info">
+                    Supported formats: JPG, PNG and WEBP.
+                    Maximum size: 10 MB.
+                </p>
+
+                <p id="uploadMessage"></p>
+
+                <button type="submit" id="uploadButton">
+                    Upload Artwork 🚀
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- MY GALLERY -->
+        <section id="gallery" class="content-section">
+
+            <h2>My Gallery 🖼️</h2>
+
+            <p>Your uploaded drawings will appear here.</p>
+
+            <div id="myGallery" class="art-grid">
+
+                <p>Loading your gallery...</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMMUNITY -->
+        <section id="community" class="content-section">
+
+            <h2>ArtVault Community 👥</h2>
+
+            <p>
+                Connect with artists and share your creativity.
+            </p>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            © 2026 ArtVault | Created for Artists ❤️
+
+        </footer>
+
+    </main>
+
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>

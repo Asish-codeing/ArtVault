@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArtVault | Admin Panel</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2>ArtVault<span>.</span></h2>
+
+        <p class="admin-label">ADMIN PANEL</p>
+
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#users">Manage Users</a>
+            <a href="#drawings">Manage Drawings</a>
+            <a href="#activities">Activity Monitoring</a>
+            <a href="dashboard.html">User Dashboard</a>
+        </nav>
+
+        <button id="logoutButton">Logout</button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <p>ARTVAULT CONTROL CENTER</p>
+                <h1>Admin Dashboard</h1>
+            </div>
+
+            <div class="admin-profile">
+                <span>Administrator</span>
+                <div class="avatar">A</div>
+            </div>
+
+        </header>
+
+
+        <!-- OVERVIEW -->
+        <section id="overview">
+
+            <h2>Overview</h2>
+
+            <div class="stats-container">
+
+                <div class="stat-card">
+                    <p>Total Users</p>
+                    <h2 id="totalUsers">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Total Drawings</p>
+                    <h2 id="totalDrawings">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Admin Status</p>
+                    <h2 class="status">ACTIVE</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MANAGE USERS -->
+        <section id="users">
+
+            <h2>Registered Users 👥</h2>
+
+            <input
+                type="text"
+                id="userSearch"
+                placeholder="Search users by username..."
+            >
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="usersTable">
+
+                        <tr>
+                            <td colspan="4">Loading users...</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- MANAGE DRAWINGS -->
+        <section id="drawings">
+
+            <h2>Manage Drawings 🎨</h2>
+
+            <p>View and manage artwork uploaded by all ArtVault users.</p>
+
+            <div class="drawing-controls">
+
+                <input
+                    type="text"
+                    id="drawingSearch"
+                    placeholder="Search by drawing title or artist..."
+                >
+
+                <button type="button" id="refreshDrawings">
+                    🔄 Refresh Drawings
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Drawing</th>
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="drawingsTable">
+
+                        <tr>
+                            <td colspan="5">Loading drawings...</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACTIVITY MONITORING -->
+        <section id="activities">
+
+            <h2>Activity Monitoring 📊</h2>
+
+            <p>Monitor registrations, logins, drawing uploads and deletions.</p>
+
+            <div class="drawing-controls">
+
+                <button type="button" id="refreshActivities">
+                    🔄 Refresh Activities
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Activity</th>
+                            <th>Description</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="activitiesTable">
+
+                        <tr>
+                            <td colspan="5">Loading activities...</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+            © 2026 ArtVault | Admin Control Center
+        </footer>
+
+    </main>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

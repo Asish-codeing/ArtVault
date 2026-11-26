@@ -1,0 +1,97 @@
+* { box-sizing: border-box; }
+body {
+ margin: 0;
+ min-height: 100vh;
+ color: #fff;
+ font-family: Arial, Helvetica, sans-serif;
+ background:
+ linear-gradient(rgba(5,3,15,.88), rgba(5,3,15,.94)),
+ url("anime-bg.jpg") center / cover fixed no-repeat,
+ #080612;
+}
+.auth-page {
+ min-height: 100vh;
+ padding: 28px 18px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+.brand {
+ color: #fff;
+ text-decoration: none;
+ font-size: 24px;
+ font-weight: 800;
+ letter-spacing: 3px;
+}
+.brand span { color: #b56cff; }
+.auth-card {
+ width: min(100%, 440px);
+ margin: 28px auto;
+ padding: 34px;
+ border: 1px solid rgba(181,108,255,.45);
+ border-radius: 14px;
+ background: rgba(17,12,32,.91);
+ARTVAULT | PHASE 2 Page 3
+ box-shadow: 0 0 35px rgba(147,51,234,.18);
+ backdrop-filter: blur(10px);
+}
+.eyebrow {
+ color: #c084fc;
+ font-size: 10px;
+ letter-spacing: 3px;
+}
+h1 { margin: 10px 0; font-size: 29px; }
+.intro { margin: 0 0 24px; color: #cfc5df; font-size: 14px; }
+label {
+ display: block;
+ margin: 16px 0 7px;
+ color: #e9d5ff;
+ font-size: 13px;
+}
+input {
+ width: 100%;
+ padding: 13px 14px;
+ color: #fff;
+ background: #0c0918;
+ border: 1px solid #44315e;
+ border-radius: 7px;
+ outline: none;
+}
+input:focus {
+ border-color: #b56cff;
+ box-shadow: 0 0 0 3px rgba(181,108,255,.15);
+}
+button {
+ width: 100%;
+ margin-top: 18px;
+ padding: 14px;
+ color: #fff;
+ background: linear-gradient(90deg, #7e22ce, #9333ea);
+ border: 0;
+ border-radius: 7px;
+ font-weight: bold;
+ letter-spacing: 1.5px;
+ cursor: pointer;
+}
+button:hover { filter: brightness(1.15); }
+.message {
+ min-height: 18px;
+ margin: 12px 0 0;
+ color: #f9a8d4;
+ font-size: 13px;
+}
+.switch, .back-link {
+ text-align: center;
+ color: #cfc5df;
+ font-size: 13px;
+}
+.switch a, .back-link { color: #c084fc; }
+.back-link {
+ display: block;
+ margin-top: 22px;
+ text-decoration: none;
+}
+@media (max-width: 480px) {
+ .auth-card { padding: 25px 20px; }
+ h1 { font-size: 25px; }
+}
