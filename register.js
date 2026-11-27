@@ -1,4 +1,9 @@
-const API_URL = "http://localhost:8080";
+// Automatically select the correct backend
+const API_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://localhost:8080"
+        : "https://artvault-production-428cc489.up.railway.app";
 
 const registerForm = document.getElementById("registerForm");
 
@@ -31,7 +36,9 @@ if (registerForm) {
 
             if (!response.ok) {
                 throw new Error(
-                    data.detail || data.message || "Registration failed."
+                    data.detail ||
+                    data.message ||
+                    "Registration failed."
                 );
             }
 
@@ -44,6 +51,7 @@ if (registerForm) {
 
         } catch (error) {
             console.error("Registration error:", error);
+
             message.textContent =
                 error.message || "Cannot connect to the server.";
         }
