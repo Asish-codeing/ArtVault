@@ -1,4 +1,4 @@
-const API_URL = "https://artvault-production-428cc489.up.railway.app";
+const API_URL = "http://localhost:8080";
 // =====================================
 // ELEMENTS
 // =====================================

@@ -20,16 +20,19 @@ public class DrawingService {
 
     private final Cloudinary cloudinary;
     private final DrawingRepository drawingRepository;
+    private final ImageCompressionService imageCompressionService;
 
     public DrawingService(
             Cloudinary cloudinary,
-            DrawingRepository drawingRepository) {
+            DrawingRepository drawingRepository,
+            ImageCompressionService imageCompressionService) {
 
         this.cloudinary = cloudinary;
         this.drawingRepository = drawingRepository;
+        this.imageCompressionService = imageCompressionService;
     }
 
-    // Upload drawing
+    // Upload drawing with automatic compression
     public Drawing uploadDrawing(
             String title,
             String description,
@@ -74,8 +77,10 @@ public class DrawingService {
             );
         }
 
+        // Read original image
         byte[] imageBytes = file.getBytes();
 
+        // Validate original image format
         String detectedType = detectImageType(imageBytes);
 
         if (detectedType == null) {
@@ -94,8 +99,21 @@ public class DrawingService {
             );
         }
 
+        // Compress image into WebP before Cloudinary upload
+        byte[] compressedImage =
+            imageCompressionService.compressImage(imageBytes);
+
+        if (compressedImage == null ||
+                compressedImage.length == 0) {
+
+            throw new IllegalStateException(
+                "Image compression failed."
+            );
+        }
+
+        // Upload compressed WebP image
         Map uploadResult = cloudinary.uploader().upload(
-            imageBytes,
+            compressedImage,
             ObjectUtils.asMap(
                 "folder", "artvault/drawings",
                 "resource_type", "image"

@@ -69,6 +69,20 @@
             <version>2.6.0</version>
         </dependency>
 
+        <!-- Image resizing and compression -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.21</version>
+        </dependency>
+
+        <!-- WebP image reading and writing -->
+        <dependency>
+            <groupId>com.github.usefulness</groupId>
+            <artifactId>webp-imageio</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+
         <!-- JPA Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
