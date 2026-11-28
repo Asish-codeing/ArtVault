@@ -60,17 +60,18 @@ if (registerForm) {
                 console.error("Could not parse server response:", responseText);
             }
 
-            // Handle server errors
-            if (!response.ok) {
+        // Handle server errors
+if (!response.ok) {
 
-                throw new Error(
-                    data.detail ||
-                    data.message ||
-                    data.error ||
-                    `Registration failed. Server returned ${response.status}.`
-                );
+    throw new Error(
+        data.detail ||
+        data.message ||
+        data.error ||
+        data.title ||
+        `Registration failed. Server returned ${response.status}.`
+    );
 
-            }
+}
 
             // Registration successful
             message.textContent =
